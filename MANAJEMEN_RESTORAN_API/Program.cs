@@ -1,4 +1,5 @@
 using MANAJEMEN_RESTORAN_API.Data;
+using MANAJEMEN_RESTORAN_API.Mappings;
 using MANAJEMEN_RESTORAN_API.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<RestoDbContext>(options =>
 );
 
 builder.Services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles)); // inject the automapper
 
 var app = builder.Build();
 

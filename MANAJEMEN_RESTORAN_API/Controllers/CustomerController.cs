@@ -1,4 +1,5 @@
-﻿using MANAJEMEN_RESTORAN_API.Data;
+﻿using AutoMapper;
+using MANAJEMEN_RESTORAN_API.Data;
 using MANAJEMEN_RESTORAN_API.Models.Domain;
 using MANAJEMEN_RESTORAN_API.Models.DTO;
 using MANAJEMEN_RESTORAN_API.Repositories;
@@ -14,11 +15,13 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     {
         private readonly RestoDbContext dbContext;
         private readonly ICustomerRepository customerRepository;
+        private readonly IMapper mapper;
 
-        public CustomerController(RestoDbContext dbContext, ICustomerRepository customerRepository)
+        public CustomerController(RestoDbContext dbContext, ICustomerRepository customerRepository, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.customerRepository = customerRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -26,16 +29,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         {
             //var customersDomain = dbContext.mh_customer.ToList();
             var customersDomain = await customerRepository.GetAllAsync();
-            var customersDto = new List<MHCustomerDto>();
-            foreach (var customer in customersDomain)
-            {
-                customersDto.Add(new MHCustomerDto()
-                {
-                    id = customer.id,
-                    customer_name = customer.customer_name,
-                    customer_phone = customer.customer_phone,
-                });
-            }
+            var customersDto = mapper.Map<List<MHCustomerDto>>(customersDomain);
             return Ok(customersDto);
         }
 
@@ -49,12 +43,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
                 return NotFound("ga ada");
             }
 
-            var customerDto = new MHCustomerDto
-            {
-                id = customerDomain.id,
-                customer_name = customerDomain.customer_name,
-                customer_phone = customerDomain.customer_phone
-            };
+            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
 
             return Ok(customerDto);
         }
@@ -63,20 +52,11 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         public async Task<IActionResult> AddCustomer([FromBody] AddMHCustomerRequestDto requestDto)
         {
             // map from dto to domain model
-            var customerDomain = new MHCustomer
-            {
-                customer_name = requestDto.customer_name,
-                customer_phone = requestDto.customer_phone
-            };
-
+            var customerDomain = mapper.Map<MHCustomer>(requestDto);
             customerDomain = await customerRepository.CreateAsync(customerDomain);
 
-            var customerDto = new MHCustomerDto
-            {
-                id = customerDomain.id,
-                customer_name = customerDomain.customer_name,
-                customer_phone = customerDomain.customer_phone
-            };
+            // map from domain back to dto
+            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
 
             return CreatedAtAction(nameof(GetById), new { id = customerDto.id }, customerDto);
         }
@@ -89,11 +69,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         )
         {
             // map dto to domain model
-            var customerDomain = new MHCustomer
-            {
-                customer_name = updateRequestDto.customer_name,
-                customer_phone = updateRequestDto.customer_phone
-            };
+            var customerDomain = mapper.Map<MHCustomer>(updateRequestDto);
 
             customerDomain = await customerRepository.UpdateAsync(id, customerDomain);
 
@@ -103,12 +79,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             }
 
             // map domain model to dto back
-            var customerDto = new MHCustomerDto
-            {
-                id = customerDomain.id,
-                customer_name = customerDomain.customer_name,
-                customer_phone = customerDomain.customer_phone
-            };
+            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
 
             return Ok(customerDto);
         }
@@ -120,12 +91,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             if(customerDomain == null) { return NotFound(); }
 
             // map domain to dto
-            var customerDto = new MHCustomerDto
-            {
-                id = customerDomain.id,
-                customer_name = customerDomain.customer_name,
-                customer_phone = customerDomain.customer_phone
-            };
+            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
             return Ok(customerDto);
         }
     }
