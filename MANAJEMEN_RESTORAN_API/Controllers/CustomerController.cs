@@ -1,4 +1,5 @@
 ﻿using MANAJEMEN_RESTORAN_API.Data;
+using MANAJEMEN_RESTORAN_API.Models.Domain;
 using MANAJEMEN_RESTORAN_API.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,8 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         {
             var customersDomain = dbContext.mh_customer.ToList();
             var customersDto = new List<MHCustomerDto>();
-            foreach (var customer in customersDomain) {
+            foreach (var customer in customersDomain)
+            {
                 customersDto.Add(new MHCustomerDto()
                 {
                     id = customer.id,
@@ -33,22 +35,46 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             return Ok(customersDto);
         }
 
-        [HttpGet]
-        [Route("cabang")]
-        public IActionResult GetAllCabang() {
-            var cabangsDomain = dbContext.mh_cabang.ToList();
-            var cabangsDto = new List<MHCabangDto>();
-            foreach (var cabang in cabangsDomain)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var customerDomain = await dbContext.mh_customer.FirstOrDefaultAsync(x => x.id == id);
+            if (customerDomain == null)
             {
-                cabangsDto.Add(new MHCabangDto()
-                {
-                    id = cabang.id,
-                    name = cabang.name,
-                    jumlah_lantai = cabang.jumlah_lantai,
-                    kota = cabang.kota
-                });
+                return NotFound("ga ada");
             }
-            return Ok(cabangsDto);
+
+            var customerDto = new MHCustomerDto
+            {
+                id = customerDomain.id,
+                customer_name= customerDomain.customer_name,
+                customer_phone= customerDomain.customer_phone
+            };
+
+            return Ok(customerDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCustomer([FromBody] AddMHCustomerRequestDto requestDto)
+        {
+            // map from dto to domain model
+            var customerDomain = new MHCustomer
+            {
+                customer_name = requestDto.customer_name,
+                customer_phone = requestDto.customer_phone
+            };
+
+            await dbContext.mh_customer.AddAsync(customerDomain);
+            await dbContext.SaveChangesAsync();
+
+            var customerDto = new MHCustomerDto
+            {
+                id = customerDomain.id,
+                customer_name = customerDomain.customer_name,
+                customer_phone = customerDomain.customer_phone
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = customerDto.id }, customerDto);
         }
     }
 }
