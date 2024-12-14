@@ -1,4 +1,5 @@
 using MANAJEMEN_RESTORAN_API.Data;
+using MANAJEMEN_RESTORAN_API.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RestoDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RestoConnectionString"))
 );
+
+builder.Services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
 
 var app = builder.Build();
 

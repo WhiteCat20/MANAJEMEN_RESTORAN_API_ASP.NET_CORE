@@ -5,6 +5,9 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
     public interface ICustomerRepository
     {
         Task<List<MHCustomer>> GetAllAsync();
-        Task<MHCustomer> GetAsync(int id);
+        Task<MHCustomer?> GetByIdAsync(int id);
+        Task<MHCustomer> CreateAsync(MHCustomer customer);
+        Task<MHCustomer?> UpdateAsync(int id, MHCustomer customer);
+        Task<MHCustomer?> DeleteAsync(int id);
     }
 }
