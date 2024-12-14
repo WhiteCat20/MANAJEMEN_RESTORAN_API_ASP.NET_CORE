@@ -1,0 +1,12 @@
+Starting NuGet packages for Web API
+- AutoMapper
+- Microsoft.AspNetCore.Authentication.JwtBearer
+- Microsoft.AspNetCore.Identity.EntityFrameworkCore
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.EntityFrameworkCore.Tools
+- Microsoft.IdentityModel.Tokens
+- Serilog
+- Serilog.AspNetCore
+- Serilog.Sinks.Console
+- Serilog.Sinks.File
+- System.IdentityModel.Tokens.Jwt
