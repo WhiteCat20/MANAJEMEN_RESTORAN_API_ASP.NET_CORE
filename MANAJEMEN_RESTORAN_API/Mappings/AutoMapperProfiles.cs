@@ -11,6 +11,10 @@ namespace MANAJEMEN_RESTORAN_API.Mappings
             CreateMap<MHCustomer, MHCustomerDto>().ReverseMap();
             CreateMap<MHCustomer, AddMHCustomerRequestDto>().ReverseMap();
             CreateMap<MHCustomer, UpdateMHCustomerRequestDto>().ReverseMap();
+            CreateMap<MHCabang, MHCabangDto>().ReverseMap();
+            CreateMap<MHCabang, AddMHCabangRequestDto>().ReverseMap();
+            CreateMap<MHCabang, UpdateMHCabangRequestDto>().ReverseMap();
+            CreateMap<MHTable, MHTableDto>().ReverseMap();
         }
     }
 }
