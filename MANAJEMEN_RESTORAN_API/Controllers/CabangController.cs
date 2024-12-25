@@ -58,7 +58,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             // map from domain back to dto
             var dto = mapper.Map<MHCabangDto>(domain);
 
-            return CreatedAtAction(nameof(GetById), new { id = dto.id }, dto);
+            return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
         }
 
         [HttpPut]

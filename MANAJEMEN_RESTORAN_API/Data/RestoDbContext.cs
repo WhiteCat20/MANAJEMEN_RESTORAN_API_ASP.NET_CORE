@@ -9,14 +9,14 @@ namespace MANAJEMEN_RESTORAN_API.Data
         public DbSet<MHCustomer> MHCustomers { get; set; }
         public DbSet<MHCabang> MHCabangs {  get; set; }
         public DbSet<MHTable> MHTables { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
-            //modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
-            //modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
+        //    //modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
+        //    //modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
+        //    //modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
 
-        }
+        //}
     }
 }   
