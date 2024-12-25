@@ -15,17 +15,17 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<List<MHCabang>> GetAllAsync()
         {
-            return await dbContext.mh_cabang.ToListAsync();
+            return await dbContext.MHCabangs.ToListAsync();
         }
 
         public async Task<MHCabang?> GetByIdAsync(int id)
         {
-            return await dbContext.mh_cabang.FirstOrDefaultAsync(x => x.id == id);
+            return await dbContext.MHCabangs.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<MHCabang> CreateAsync(MHCabang cabang)
         {
-            await dbContext.mh_cabang.AddAsync(cabang);
+            await dbContext.MHCabangs.AddAsync(cabang);
             await dbContext.SaveChangesAsync();
 
             return cabang; 
@@ -33,14 +33,14 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<MHCabang?> UpdateAsync(int id, MHCabang cabang)
         {
-            var existingCabang = await dbContext.mh_cabang.FirstOrDefaultAsync(x => x.id == id);
+            var existingCabang = await dbContext.MHCabangs.FirstOrDefaultAsync(x => x.Id == id);
             if (existingCabang == null)
             {
                 return null;
             }
-            existingCabang.name = cabang.name;
-            existingCabang.kota = cabang.kota;
-            existingCabang.jumlah_lantai = cabang.jumlah_lantai;
+            existingCabang.Name = cabang.Name;
+            existingCabang.Kota = cabang.Kota;
+            existingCabang.JumlahLantai = cabang.JumlahLantai;
             await dbContext.SaveChangesAsync();
 
             return existingCabang;
@@ -48,7 +48,7 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<MHCabang?> DeleteAsync(int id)
         {
-            var existingCabang = await dbContext.mh_cabang.FirstOrDefaultAsync(x => x.id == id);
+            var existingCabang = await dbContext.MHCabangs.FirstOrDefaultAsync(x => x.Id == id);
             if (existingCabang == null)
             {
                 return null;

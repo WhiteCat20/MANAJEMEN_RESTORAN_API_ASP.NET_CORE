@@ -4,15 +4,15 @@ namespace MANAJEMEN_RESTORAN_API.Models.DTO
 {
     public class MHTableDto
     {
-        public int id { get; set; }
-        public int nomor_meja { get; set; }
-        public int lantai { get; set; }
-        public int is_reserved { get; set; }
-        public int capacity { get; set; }
-        public int status { get; set; }
+        public int Id { get; set; }
+        public int NomorMeja { get; set; }
+        public int Lantai { get; set; }
+        public bool isReserved { get; set; }
+        public int Capacity { get; set; }
+        public int Status { get; set; }
 
-        public int id_mh_cabang { get; set; }
+        public int mhCabangId { get; set; }
         // navigation
-        public MHCabang mh_cabang { get; set; }
+        public MHCabang MHCabang { get; set; }
     }
 }
