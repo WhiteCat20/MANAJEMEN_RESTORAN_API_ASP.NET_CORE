@@ -3,6 +3,7 @@ using MANAJEMEN_RESTORAN_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MANAJEMEN_RESTORAN_API.Migrations
 {
     [DbContext(typeof(RestoDbContext))]
-    partial class RestoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241225035724_seed_mh_cabang_mh_table")]
+    partial class seed_mh_cabang_mh_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,17 +279,12 @@ namespace MANAJEMEN_RESTORAN_API.Migrations
             modelBuilder.Entity("MANAJEMEN_RESTORAN_API.Models.Domain.MHTable", b =>
                 {
                     b.HasOne("MANAJEMEN_RESTORAN_API.Models.Domain.MHCabang", "MHCabang")
-                        .WithMany("MHTables")
+                        .WithMany()
                         .HasForeignKey("mhCabangId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MHCabang");
-                });
-
-            modelBuilder.Entity("MANAJEMEN_RESTORAN_API.Models.Domain.MHCabang", b =>
-                {
-                    b.Navigation("MHTables");
                 });
 #pragma warning restore 612, 618
         }

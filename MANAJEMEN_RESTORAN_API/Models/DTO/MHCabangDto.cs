@@ -8,5 +8,6 @@ namespace MANAJEMEN_RESTORAN_API.Models.DTO
         public string Name { get; set; }
         public string Kota { get; set; }
         public int JumlahLantai { get; set; }
+        
     }
 }
