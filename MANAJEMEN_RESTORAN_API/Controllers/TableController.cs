@@ -27,5 +27,11 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             return Ok(dto);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddTable()
+        {
+
+        }
+
     }
 }

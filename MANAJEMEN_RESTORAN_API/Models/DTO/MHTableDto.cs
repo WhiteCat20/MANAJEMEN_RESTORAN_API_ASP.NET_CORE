@@ -1,4 +1,5 @@
 ﻿using MANAJEMEN_RESTORAN_API.Models.Domain;
+using System.Text.Json.Serialization;
 
 namespace MANAJEMEN_RESTORAN_API.Models.DTO
 {
@@ -13,6 +14,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.DTO
 
         public int mhCabangId { get; set; }
         // navigation
+        //[JsonIgnore]
         public MHCabang MHCabang { get; set; }
     }
 }

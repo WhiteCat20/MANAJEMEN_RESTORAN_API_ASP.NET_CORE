@@ -13,9 +13,9 @@ namespace MANAJEMEN_RESTORAN_API.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
-            //modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
-            //modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
+            modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
+            modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
+            modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
 
             var cabangs = new List<MHCabang>()
             {
@@ -49,6 +49,11 @@ namespace MANAJEMEN_RESTORAN_API.Data
             };
 
             modelBuilder.Entity<MHTable>().HasData(tables);
+
+            modelBuilder.Entity<MHTable>()
+            .HasOne(b => b.MHCabang) // A Book has one Author
+            .WithMany(a => a.MHTables) // An Author has many Books
+            .HasForeignKey(b => b.mhCabangId).OnDelete(DeleteBehavior.Restrict); // Foreign Key
 
         }
     }

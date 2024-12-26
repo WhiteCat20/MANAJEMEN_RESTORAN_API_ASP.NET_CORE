@@ -1,4 +1,6 @@
-﻿namespace MANAJEMEN_RESTORAN_API.Models.Domain
+﻿using System.Text.Json.Serialization;
+
+namespace MANAJEMEN_RESTORAN_API.Models.Domain
 {
     public class MHCabang
     {
@@ -6,5 +8,7 @@
         public string Name { get; set; }
         public string Kota { get; set; }
         public int JumlahLantai { get; set; }
+        [JsonIgnore]
+        public List<MHTable?> MHTables { get; set; }
     }
 }

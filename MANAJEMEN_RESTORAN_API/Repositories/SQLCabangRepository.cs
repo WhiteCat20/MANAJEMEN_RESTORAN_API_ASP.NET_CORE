@@ -15,7 +15,7 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<List<MHCabang>> GetAllAsync()
         {
-            return await dbContext.MHCabangs.ToListAsync();
+            return await dbContext.MHCabangs.Include(a=>a.MHTables).ToListAsync();
         }
 
         public async Task<MHCabang?> GetByIdAsync(int id)
