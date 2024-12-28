@@ -10,6 +10,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
         public DbSet<MHCabang> MHCabangs { get; set; }
         public DbSet<MHTable> MHTables { get; set; }
         public DbSet<MHFnb> MHFnbs { get; set; }
+        public DbSet<MHService> MHServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -18,6 +19,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
             modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
             modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
             modelBuilder.Entity<MHFnb>().ToTable("MHFnbs", "dbo");
+            modelBuilder.Entity<MHService>().ToTable("MHServices", "dbo");
 
             var cabangs = new List<MHCabang>()
             {
@@ -51,6 +53,16 @@ namespace MANAJEMEN_RESTORAN_API.Data
             };
 
             modelBuilder.Entity<MHTable>().HasData(tables);
+
+            var services = new List<MHService>()
+            {
+                new MHService() { Id = 1, ServiceName = "order"},
+                new MHService() { Id = 2, ServiceName = "call"},
+                new MHService() { Id = 3, ServiceName = "pay"},
+                new MHService() { Id = 4, ServiceName = "complaint"},
+            };
+
+            modelBuilder.Entity<MHService>().HasData(services);
 
             modelBuilder.Entity<MHTable>()
             .HasOne(b => b.MHCabang) // A Table has one Cabang
