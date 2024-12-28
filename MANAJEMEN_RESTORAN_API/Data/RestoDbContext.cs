@@ -9,6 +9,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
         public DbSet<MHCustomer> MHCustomers { get; set; }
         public DbSet<MHCabang> MHCabangs { get; set; }
         public DbSet<MHTable> MHTables { get; set; }
+        public DbSet<MHFnb> MHFnbs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -16,6 +17,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
             modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
             modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
             modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");
+            modelBuilder.Entity<MHFnb>().ToTable("MHFnbs", "dbo");
 
             var cabangs = new List<MHCabang>()
             {
@@ -51,7 +53,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
             modelBuilder.Entity<MHTable>().HasData(tables);
 
             modelBuilder.Entity<MHTable>()
-            .HasOne(b => b.MHCabang) // A Book has one Author
+            .HasOne(b => b.MHCabang) // A Table has one Cabang
             .WithMany(a => a.MHTables) // An Author has many Books
             .HasForeignKey(b => b.mhCabangId).OnDelete(DeleteBehavior.Restrict); // Foreign Key
 

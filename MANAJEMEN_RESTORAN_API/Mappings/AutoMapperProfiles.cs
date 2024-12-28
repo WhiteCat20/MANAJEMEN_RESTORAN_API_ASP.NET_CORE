@@ -6,7 +6,8 @@ namespace MANAJEMEN_RESTORAN_API.Mappings
 {
     public class AutoMapperProfiles : Profile
     {
-        public AutoMapperProfiles() {
+        public AutoMapperProfiles()
+        {
             // source, destination
             CreateMap<MHCustomer, MHCustomerDto>().ReverseMap();
             CreateMap<MHCustomer, AddMHCustomerRequestDto>().ReverseMap();
@@ -15,6 +16,7 @@ namespace MANAJEMEN_RESTORAN_API.Mappings
             CreateMap<MHCabang, AddMHCabangRequestDto>().ReverseMap();
             CreateMap<MHCabang, UpdateMHCabangRequestDto>().ReverseMap();
             CreateMap<MHTable, MHTableDto>().ReverseMap();
+            CreateMap<AddMHFnbRequestDto, MHFnb>().ReverseMap();
         }
     }
 }
