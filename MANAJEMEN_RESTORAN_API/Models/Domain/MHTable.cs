@@ -7,7 +7,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.Domain
         public int Id { get; set; }
         public int NomorMeja { get; set; }
         public int Lantai {  get; set; }
-        public bool isReserved { get; set; }
+        public bool isReserved { get; set; } = false;
         public int Capacity { get; set; }
         public int Status { get; set; }
 
@@ -15,5 +15,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.Domain
         // navigation
         [JsonIgnore]
         public MHCabang MHCabang { get; set; }
+        [JsonIgnore]
+        public List<THReservation?> THReservations { get; set; }
     }
 }

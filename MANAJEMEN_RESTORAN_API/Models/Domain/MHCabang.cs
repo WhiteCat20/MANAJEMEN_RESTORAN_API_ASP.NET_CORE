@@ -10,5 +10,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.Domain
         public int JumlahLantai { get; set; }
         [JsonIgnore]
         public List<MHTable?> MHTables { get; set; }
+        [JsonIgnore]
+        public List<THReservation?> THReservations { get; set; }
     }
 }

@@ -17,6 +17,9 @@ namespace MANAJEMEN_RESTORAN_API.Mappings
             CreateMap<MHCabang, UpdateMHCabangRequestDto>().ReverseMap();
             CreateMap<MHTable, MHTableDto>().ReverseMap();
             CreateMap<AddMHFnbRequestDto, MHFnb>().ReverseMap();
+            CreateMap<THReservation, THReservationDto>().ReverseMap();
+            CreateMap<THReservation, AddTHReservationRequestDto>().ReverseMap();
+
         }
     }
 }
