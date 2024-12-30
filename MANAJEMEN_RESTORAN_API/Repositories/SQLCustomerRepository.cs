@@ -15,17 +15,17 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<List<MHCustomer>> GetAllAsync()
         {
-            return await dbContext.mh_customer.ToListAsync();
+            return await dbContext.MHCustomers.ToListAsync();
         }
 
         public async Task<MHCustomer?> GetByIdAsync(int id)
         {
-            return await dbContext.mh_customer.FirstOrDefaultAsync(x => x.id == id);
+            return await dbContext.MHCustomers.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<MHCustomer> CreateAsync(MHCustomer customer)
         {
-            await dbContext.mh_customer.AddAsync(customer);
+            await dbContext.MHCustomers.AddAsync(customer);
             await dbContext.SaveChangesAsync();
 
             return customer; // mengembalikan customer, yang nantinya akan diubah menjadi DTO sebagai response message
@@ -33,12 +33,12 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<MHCustomer?> UpdateAsync(int id, MHCustomer customer)
         {
-            var existingCustomer = await dbContext.mh_customer.FirstOrDefaultAsync(x=>x.id == id);
+            var existingCustomer = await dbContext.MHCustomers.FirstOrDefaultAsync(x=>x.Id == id);
             if (existingCustomer == null) {
                 return null;
             }
-            existingCustomer.customer_name = customer.customer_name;
-            existingCustomer.customer_phone = customer.customer_phone;
+            existingCustomer.CustomerName = customer.CustomerName;
+            existingCustomer.CustomerPhone = customer.CustomerPhone;
             await dbContext.SaveChangesAsync();
 
             return existingCustomer;
@@ -46,7 +46,7 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
 
         public async Task<MHCustomer?> DeleteAsync(int id)
         {
-            var existingCustomer = await dbContext.mh_customer.FirstOrDefaultAsync(x=> x.id == id);
+            var existingCustomer = await dbContext.MHCustomers.FirstOrDefaultAsync(x=> x.Id == id);
             if (existingCustomer == null) {
                 return null;
             }

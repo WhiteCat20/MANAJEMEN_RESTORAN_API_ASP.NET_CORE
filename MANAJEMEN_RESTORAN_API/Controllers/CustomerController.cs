@@ -58,7 +58,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             // map from domain back to dto
             var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
 
-            return CreatedAtAction(nameof(GetById), new { id = customerDto.id }, customerDto);
+            return CreatedAtAction(nameof(GetById), new { id = customerDto.Id }, customerDto);
         }
 
         [HttpPut]

@@ -2,8 +2,8 @@
 {
     public class MHCustomer
     {
-        public int id { get; set; }
-        public string customer_name { get; set; }
-        public string customer_phone { get; set; }
+        public int Id { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerPhone { get; set; }
     }
 }
