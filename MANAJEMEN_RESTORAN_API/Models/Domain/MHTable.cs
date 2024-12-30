@@ -17,5 +17,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.Domain
         public MHCabang MHCabang { get; set; }
         [JsonIgnore]
         public List<THReservation?> THReservations { get; set; }
+        [JsonIgnore]
+        public List<THCheckin?> THCheckins { get; set; }
     }
 }

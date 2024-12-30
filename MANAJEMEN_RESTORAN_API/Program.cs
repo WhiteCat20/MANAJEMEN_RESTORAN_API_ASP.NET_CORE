@@ -24,6 +24,7 @@ builder.Services.AddScoped<ICabangRepository, SQLCabangRepository>();
 builder.Services.AddScoped<ITableRepository, SQLTableRepository>();
 builder.Services.AddScoped<IFnbRepository, SQLFnbRepository>();
 builder.Services.AddScoped<IReservationRepository, SQLReservationRepository>();
+builder.Services.AddScoped<ICheckinRepository, SQLCheckinRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles)); // inject the automapper
 
 
