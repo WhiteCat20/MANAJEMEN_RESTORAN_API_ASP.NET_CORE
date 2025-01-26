@@ -24,5 +24,7 @@ namespace MANAJEMEN_RESTORAN_API.Models.DTO
         public MHCabang MHCabang { get; set; }
         //[JsonIgnore]
         public MHTable MHTable { get; set; }
+        //[JsonIgnore]
+        public List<TDService?> TDServices { get; set; }
     }
 }

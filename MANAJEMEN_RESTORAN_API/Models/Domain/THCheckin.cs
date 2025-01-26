@@ -24,6 +24,9 @@ namespace MANAJEMEN_RESTORAN_API.Models.Domain
         [JsonIgnore]
         public MHTable MHTable { get; set; }
 
+        [JsonIgnore]
+        public List<TDService?> TDServices { get; set; }
+
         private static string GenerateCode()
         {
             string dateTimePart = DateTime.Now.ToString("yyyyMMdd");
