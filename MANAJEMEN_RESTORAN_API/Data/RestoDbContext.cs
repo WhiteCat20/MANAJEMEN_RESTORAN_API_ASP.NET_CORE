@@ -13,6 +13,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
         public DbSet<MHService> MHServices { get; set; }
         public DbSet<THReservation> THReservations { get; set; }
         public DbSet<THCheckin> THCheckins { get; set; }
+        public DbSet<TDService> TDServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -24,6 +25,7 @@ namespace MANAJEMEN_RESTORAN_API.Data
             modelBuilder.Entity<MHService>().ToTable("MHServices", "dbo");
             modelBuilder.Entity<THReservation>().ToTable("THReservations", "dbo");
             modelBuilder.Entity<THCheckin>().ToTable("THCheckins", "dbo");
+            modelBuilder.Entity<TDService>().ToTable("TDServices", "dbo");
 
             var cabangs = new List<MHCabang>()
             {
@@ -95,6 +97,24 @@ namespace MANAJEMEN_RESTORAN_API.Data
                 .HasOne(r => r.MHTable) // A Reservation has one Table
                 .WithMany(t => t.THCheckins) // A Table has many Reservations
                 .HasForeignKey(r => r.MHTableId) // Foreign Key for Table
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TDService>()
+                .HasOne(r=>r.THCheckin)
+                .WithMany(t=>t.TDServices)
+                .HasForeignKey(r=>r.THCheckinId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TDService>()
+                .HasOne(r=>r.MHFnb)
+                .WithMany(t=>t.TDServices)
+                .HasForeignKey(x=>x.MHFnbId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TDService>()    
+                .HasOne(r=>r.MHService)
+                .WithMany(t=>t.TDServices)
+                .HasForeignKey(x=>x.MHServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);

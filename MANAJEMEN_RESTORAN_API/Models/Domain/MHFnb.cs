@@ -1,4 +1,6 @@
-﻿namespace MANAJEMEN_RESTORAN_API.Models.Domain
+﻿using System.Text.Json.Serialization;
+
+namespace MANAJEMEN_RESTORAN_API.Models.Domain
 {
     public class MHFnb
     {
@@ -9,5 +11,7 @@
         public bool ColdHotAvailable { get; set; }
         public int Price { get; set; }
         public bool isDeleted { get; set; }
+        [JsonIgnore]
+        public List<TDService?> TDServices { get; set; }
     }
 }

@@ -20,9 +20,8 @@ namespace MANAJEMEN_RESTORAN_API.Mappings
             CreateMap<THReservation, THReservationDto>().ReverseMap();
             CreateMap<THReservation, AddTHReservationRequestDto>().ReverseMap();
             CreateMap<THCheckin, THCheckinDto>().ReverseMap();
-            CreateMap<THCheckin, AddTHCheckinDirectDto>().ReverseMap(); 
-
-
+            CreateMap<THCheckin, AddTHCheckinDirectDto>().ReverseMap();
+            CreateMap<TDService, AddTDServiceDto>().ReverseMap();
         }
     }
 }
