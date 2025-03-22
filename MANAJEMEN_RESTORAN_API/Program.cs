@@ -14,9 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+string? connectionString = builder.Configuration.GetConnectionString("PgSqlConnectionString");
 // dependency injection 
 builder.Services.AddDbContext<RestoDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RestoConnectionString"))
+    options.UseNpgsql(connectionString)
 );
 
 builder.Services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
