@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Mappings;
-using MANAJEMEN_RESTORAN_API.Models.Domain;
-using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Resto.Domain.DTO;
+using Resto.Domain.Entity;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
@@ -12,20 +9,18 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     [ApiController]
     public class FnbController : ControllerBase
     {
-        private readonly IFnbRepository repo;
-        private readonly IMapper mapper;
+        private readonly IFnbRepository _repo;
 
-        public FnbController(IFnbRepository repo, IMapper mapper)
+        public FnbController(IFnbRepository repo)
         {
-            this.repo = repo;
-            this.mapper = mapper;
+            _repo = repo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var domain = await repo.GetAllFnb();
-            var dto = MHFnbMapper.MapToDtoList(domain);
+            var domain = await _repo.GetAllFnb();
+            var dto = domain.Select(fnb => fnb.ToDto()).ToList();
             return Ok(dto);
         }
 
@@ -33,17 +28,23 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         public async Task<IActionResult> Add([FromBody] AddMHFnbRequestDto request)
         {
             // dto to domain using automapper
-            var domain = mapper.Map<MHFnb>(request);
-            domain = await repo.CreateFnb(domain);
+            var domain = new MHFnb()
+            {
+                Name = request.Name,
+                Type = request.Type,
+                Price = request.Price,
+                ColdHotAvailable = request.ColdHotAvailable
+            };
+            domain = await _repo.CreateFnb(domain);
             // domain to dto using self-made mapper
-            var dto = MHFnbMapper.MapToDto(domain);
+            var dto = domain?.ToDto();
             return CreatedAtAction(nameof(GetAll), dto);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete([FromQuery] int id)
         {
-            await repo.SoftDelete(id);
+            await _repo.SoftDelete(id);
             return NoContent();
         }
     }

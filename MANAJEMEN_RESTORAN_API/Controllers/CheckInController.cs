@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Models.Domain;
-using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Resto.Domain.DTO;
+using Resto.Domain.Entity;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
@@ -11,21 +10,19 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     [ApiController]
     public class CheckInController : ControllerBase
     {
-        private readonly ICheckinRepository repo;
-        private readonly IMapper mapper;
+        private readonly ICheckinRepository _repo;
 
-        public CheckInController(ICheckinRepository repo, IMapper mapper)
+        public CheckInController(ICheckinRepository repo)
         {
-            this.repo = repo;
-            this.mapper = mapper;
+            _repo = repo;
         }
 
         [HttpGet]
         [Route("get-all")]
         public async Task<IActionResult> GetAll()
         {
-            var domain = await repo.GetAll();
-            var dto = mapper.Map<List<THCheckinDto>>(domain);
+            var domain = await _repo.GetAll();
+            var dto = domain.Select(checkin => checkin.ToDto()).ToList();
             return Ok(dto);
         }
 
@@ -33,8 +30,8 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         [Route("get/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var domain = await repo.GetById(id);
-            var dto = mapper.Map<THCheckinDto>(domain);
+            var domain = await _repo.GetById(id);
+            var dto = domain?.ToDto();
             return Ok(dto);
         }
 
@@ -42,13 +39,22 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         [Route("add")]
         public async Task<IActionResult> Create([FromBody] AddTHCheckinDirectDto request)
         {
-            var domain = mapper.Map<THCheckin>(request);
-            domain = await repo.CreateDirectly(domain);
+            var domain = new THCheckin()
+            {
+                MHCabangId = request.MHCabangId,
+                MHTableId = request.MHTableId,
+                CheckIn = request.CheckIn,
+                Duration = request.Duration,
+                CustomerName = request.CustomerName,
+                CustomerPhone = request.CustomerPhone,
+                CustomerTotal = request.CustomerTotal,
+            };
+            domain = await _repo.CreateDirectly(domain);
             if (domain == null)
             {
                 return BadRequest();
             }
-            var dto = mapper.Map<THCheckinDto>(domain);
+            var dto = domain.ToDto();
             return CreatedAtAction(nameof(GetById), dto);
         }
 
@@ -56,11 +62,11 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         [Route("add-from-reservation/{THReservationId:int}")]
         public async Task<IActionResult> CreateFromReservation(int THReservationId) 
         {
-            var domain = await repo.CreateFromReservation(THReservationId);
+            var domain = await _repo.CreateFromReservation(THReservationId);
             if (domain == null) {
                 return BadRequest();
             }
-            var dto = mapper.Map<THCheckinDto>(domain);
+            var dto = domain.ToDto();
             return Ok(dto);
         }
     }

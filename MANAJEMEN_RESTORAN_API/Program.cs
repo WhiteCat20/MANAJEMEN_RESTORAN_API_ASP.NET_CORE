@@ -1,8 +1,6 @@
-using MANAJEMEN_RESTORAN_API.Data;
-using MANAJEMEN_RESTORAN_API.Mappings;
-using MANAJEMEN_RESTORAN_API.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
+using Resto.Domain.Data;
+using Resto.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,21 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 string? connectionString = builder.Configuration.GetConnectionString("PgSqlConnectionString");
 // dependency injection 
 builder.Services.AddDbContext<RestoDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
-builder.Services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
-builder.Services.AddScoped<ICabangRepository, SQLCabangRepository>();
-builder.Services.AddScoped<ITableRepository, SQLTableRepository>();
-builder.Services.AddScoped<IFnbRepository, SQLFnbRepository>();
-builder.Services.AddScoped<IReservationRepository, SQLReservationRepository>();
-builder.Services.AddScoped<ICheckinRepository, SQLCheckinRepository>();
-builder.Services.AddAutoMapper(typeof(AutoMapperProfiles)); // inject the automapper
-
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
@@ -10,22 +7,19 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     [ApiController]
     public class TableController : ControllerBase
     {
-        private readonly ITableRepository tableRepository;
-        private readonly IMapper mapper;
+        private readonly ITableRepository _tableRepository;
 
-        public TableController(ITableRepository tableRepository, IMapper mapper)
+        public TableController(ITableRepository tableRepository)
         {
-            this.tableRepository = tableRepository;
-            this.mapper = mapper;
+            _tableRepository = tableRepository;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var domain = await tableRepository.GetAllAsync();
-            var dto = mapper.Map<List<MHTableDto>>(domain);
+            var domain = await _tableRepository.GetAllAsync();
+            var dto = domain.Select(table => table.ToDto()).ToList();
             return Ok(dto);
         }
-
     }
 }

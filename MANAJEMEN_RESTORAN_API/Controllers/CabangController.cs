@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Data;
-using MANAJEMEN_RESTORAN_API.Models.Domain;
 using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Resto.Domain.Data;
+using Resto.Domain.DTO;
+using Resto.Domain.Entity;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
