@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.Domain", "Resto.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.Infrastructure", "Resto.Infrastructure\Resto.Infrastructure.csproj", "{14F3AF3C-395B-469A-8330-B65DF8AAC7E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.SharedKernel", "Resto.SharedKernel\Resto.SharedKernel.csproj", "{724672DC-5C34-42B9-B3AA-55FCE61C93D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{14F3AF3C-395B-469A-8330-B65DF8AAC7E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14F3AF3C-395B-469A-8330-B65DF8AAC7E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14F3AF3C-395B-469A-8330-B65DF8AAC7E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

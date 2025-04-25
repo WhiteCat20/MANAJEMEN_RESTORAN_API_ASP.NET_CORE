@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Domain.Entity;
 
 namespace Resto.Domain.Service
 {
     public class FnbService : IFnbRepository
     {
-        private readonly RestoDbContext dbContext;
+        private readonly DatabaseContext dbContext;
 
-        public FnbService(RestoDbContext dbContext)
+        public FnbService(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
         }

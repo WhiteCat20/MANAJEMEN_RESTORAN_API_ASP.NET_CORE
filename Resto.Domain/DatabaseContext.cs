@@ -1,11 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Resto.Domain.Entity;
+using Resto.SharedKernel.Configuration;
 
-namespace Resto.Domain.Data
+namespace Resto.Domain
 {
-    public class RestoDbContext : DbContext
+    public class DatabaseContext : DbContext
     {
-        public RestoDbContext(DbContextOptions<RestoDbContext> dbContextOptions) : base(dbContextOptions) { }
+        private readonly IModelConfiguration _modelConfiguration;
+
+        public DatabaseContext(DbContextOptions options, IModelConfiguration modelConfiguration) : base(options)
+        {
+            _modelConfiguration = modelConfiguration;
+        }
+        
         public DbSet<MHCustomer> MHCustomers { get; set; }
         public DbSet<MHCabang> MHCabangs { get; set; }
         public DbSet<MHTable> MHTables { get; set; }
@@ -15,8 +22,9 @@ namespace Resto.Domain.Data
         public DbSet<THCheckin> THCheckins { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
+            _modelConfiguration.Configure(modelBuilder);
             
-
             modelBuilder.Entity<MHCustomer>().ToTable("MHCustomers", "dbo");
             modelBuilder.Entity<MHCabang>().ToTable("MHCabangs", "dbo");
             modelBuilder.Entity<MHTable>().ToTable("MHTables", "dbo");

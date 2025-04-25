@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Domain.Entity;
 
 namespace Resto.Domain.Service
 {
     public class CheckinService : ICheckinRepository
     {
-        private readonly RestoDbContext dbContext;
+        private readonly DatabaseContext dbContext;
 
-        public CheckinService(RestoDbContext dbContext)
+        public CheckinService(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
         }

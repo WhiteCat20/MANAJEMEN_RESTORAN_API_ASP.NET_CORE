@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Domain.Entity;
 
 namespace Resto.Domain.Service
 {
     public class CabangService : ICabangRepository
     {
-        private readonly RestoDbContext dbContext;
+        private readonly DatabaseContext dbContext;
 
-        public CabangService(RestoDbContext dbContext)
+        public CabangService(DatabaseContext dbContext)
         { 
             this.dbContext = dbContext;
         }

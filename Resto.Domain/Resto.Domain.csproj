@@ -16,8 +16,12 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Npgsql" Version="9.0.3" />
+      <PackageReference Include="Npgsql" Version="8.0.7" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Resto.SharedKernel\Resto.SharedKernel.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Domain.Entity;
 
 namespace Resto.Domain.Service
 {
     public class CustomerService : ICustomerRepository
     {
-        private readonly RestoDbContext _dbContext;
+        private readonly DatabaseContext _dbContext;
 
-        public CustomerService(RestoDbContext dbContext)
+        public CustomerService(DatabaseContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MANAJEMEN_RESTORAN_API.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Resto.Domain.Data;
+using Resto.Domain;
 using Resto.Domain.DTO;
 using Resto.Domain.Entity;
 using Resto.Domain.Service;
@@ -13,11 +13,11 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
 
     public class CabangController : ControllerBase
     {
-        private readonly RestoDbContext dbContext;
+        private readonly DatabaseContext dbContext;
         private readonly ICabangRepository cabangRepository;
         private readonly IMapper mapper;
 
-        public CabangController(RestoDbContext dbContext, ICabangRepository cabangRepository, IMapper mapper)
+        public CabangController(DatabaseContext dbContext, ICabangRepository cabangRepository, IMapper mapper)
         {
             this.dbContext = dbContext;
             this.cabangRepository = cabangRepository;

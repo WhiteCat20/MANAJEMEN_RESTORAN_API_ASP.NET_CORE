@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Domain.Entity;
 
 namespace Resto.Domain.Service
 {
     public class ReservationService : IReservationRepository
     {
-        private readonly RestoDbContext dbContext;
+        private readonly DatabaseContext dbContext;
 
-        public ReservationService(RestoDbContext dbContext)
+        public ReservationService(DatabaseContext dbContext)
         {
             this.dbContext = dbContext;
         }

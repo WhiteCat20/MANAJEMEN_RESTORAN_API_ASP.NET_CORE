@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Resto.Domain.Data;
 using Resto.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +13,9 @@ builder.Services.AddSwaggerGen();
 
 string? connectionString = builder.Configuration.GetConnectionString("PgSqlConnectionString");
 // dependency injection 
-builder.Services.AddDbContext<RestoDbContext>(options =>
-    options.UseNpgsql(connectionString)
-);
 
-builder.Services.AddInfrastructure();
+
+builder.Services.AddInfrastructure(connectionString!);
 
 var app = builder.Build();
 
