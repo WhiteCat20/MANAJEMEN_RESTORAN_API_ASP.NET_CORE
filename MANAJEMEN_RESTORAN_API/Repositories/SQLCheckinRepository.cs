@@ -14,7 +14,7 @@ namespace MANAJEMEN_RESTORAN_API.Repositories
         }
         public async Task<List<THCheckin>> GetAll()
         {
-            var thCheckins = await dbContext.THCheckins.Include(x=>x.MHCabang).Include(x=>x.MHTable).ToListAsync();
+            var thCheckins = await dbContext.THCheckins.Include(x=>x.MHCabang).Include(x=>x.MHTable).Include(x=>x.TDServices).ToListAsync();
             return thCheckins;
         }
         public async Task<THCheckin?> GetById(int id)
