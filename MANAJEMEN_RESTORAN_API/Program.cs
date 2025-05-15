@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Resto.Domain;
 using Resto.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,11 @@ string? connectionString = builder.Configuration.GetConnectionString("PgSqlConne
 builder.Services.AddInfrastructure(connectionString!);
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var sqlDatabaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    sqlDatabaseContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
