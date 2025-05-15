@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.Infrastructure", "Res
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.SharedKernel", "Resto.SharedKernel\Resto.SharedKernel.csproj", "{724672DC-5C34-42B9-B3AA-55FCE61C93D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resto.UnitTest", "Resto.UnitTest\Resto.UnitTest.csproj", "{60627773-A9C8-4BEC-8F8A-131AAFAC71A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724672DC-5C34-42B9-B3AA-55FCE61C93D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60627773-A9C8-4BEC-8F8A-131AAFAC71A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60627773-A9C8-4BEC-8F8A-131AAFAC71A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60627773-A9C8-4BEC-8F8A-131AAFAC71A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60627773-A9C8-4BEC-8F8A-131AAFAC71A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
