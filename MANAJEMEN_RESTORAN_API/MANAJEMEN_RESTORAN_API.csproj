@@ -25,4 +25,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Resto.Domain\Resto.Domain.csproj" />
+    <ProjectReference Include="..\Resto.Infrastructure\Resto.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Data;
-using MANAJEMEN_RESTORAN_API.Models.Domain;
-using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using MANAJEMEN_RESTORAN_API.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Resto.Domain.DTO;
+using Resto.Domain.Entity;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
@@ -13,37 +10,31 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly RestoDbContext dbContext;
-        private readonly ICustomerRepository customerRepository;
-        private readonly IMapper mapper;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomerController(RestoDbContext dbContext, ICustomerRepository customerRepository, IMapper mapper)
+        public CustomerController(ICustomerRepository customerRepository)
         {
-            this.dbContext = dbContext;
-            this.customerRepository = customerRepository;
-            this.mapper = mapper;
+            _customerRepository = customerRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            //var customersDomain = dbContext.mh_customer.ToList();
-            var customersDomain = await customerRepository.GetAllAsync();
-            var customersDto = mapper.Map<List<MHCustomerDto>>(customersDomain);
+            var customersDomain = await _customerRepository.GetAllAsync();
+            var customersDto = customersDomain.Select(customer => customer.ToDto()).ToList();
             return Ok(customersDto);
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            //var customerDomain = await dbContext.mh_customer.FirstOrDefaultAsync(x => x.id == id);
-            var customerDomain = await customerRepository.GetByIdAsync(id);
+            var customerDomain = await _customerRepository.GetByIdAsync(id);
             if (customerDomain == null)
             {
                 return NotFound("ga ada");
             }
 
-            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
+            var customerDto = customerDomain.ToDto();
 
             return Ok(customerDto);
         }
@@ -52,12 +43,15 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         public async Task<IActionResult> AddCustomer([FromBody] AddMHCustomerRequestDto requestDto)
         {
             // map from dto to domain model
-            var customerDomain = mapper.Map<MHCustomer>(requestDto);
-            customerDomain = await customerRepository.CreateAsync(customerDomain);
+            var customerDomain = new MHCustomer()
+            {
+                CustomerName = requestDto.CustomerName,
+                CustomerPhone = requestDto.CustomerPhone
+            };
+            customerDomain = await _customerRepository.CreateAsync(customerDomain);
 
             // map from domain back to dto
-            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
-
+            var customerDto = customerDomain.ToDto();
             return CreatedAtAction(nameof(GetById), new { id = customerDto.Id }, customerDto);
         }
 
@@ -69,9 +63,13 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         )
         {
             // map dto to domain model
-            var customerDomain = mapper.Map<MHCustomer>(updateRequestDto);
+            var customerDomain = new MHCustomer()
+            {
+                CustomerName = updateRequestDto.CustomerName,
+                CustomerPhone = updateRequestDto.CustomerPhone
+            };
 
-            customerDomain = await customerRepository.UpdateAsync(id, customerDomain);
+            customerDomain = await _customerRepository.UpdateAsync(id, customerDomain);
 
             if (customerDomain == null)
             {
@@ -79,7 +77,7 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
             }
 
             // map domain model to dto back
-            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
+            var customerDto = customerDomain.ToDto();
 
             return Ok(customerDto);
         }
@@ -87,11 +85,11 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteCustomer([FromRoute] int id)
         {
-            var customerDomain = await customerRepository.DeleteAsync(id);
+            var customerDomain = await _customerRepository.DeleteAsync(id);
             if(customerDomain == null) { return NotFound(); }
 
             // map domain to dto
-            var customerDto = mapper.Map<MHCustomerDto>(customerDomain);
+            var customerDto = customerDomain.ToDto();
             return Ok(customerDto);
         }
     }

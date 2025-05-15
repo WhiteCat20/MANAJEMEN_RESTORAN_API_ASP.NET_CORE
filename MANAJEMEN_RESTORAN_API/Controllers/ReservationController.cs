@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using MANAJEMEN_RESTORAN_API.Models.Domain;
-using MANAJEMEN_RESTORAN_API.Models.DTO;
-using MANAJEMEN_RESTORAN_API.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Resto.Domain.DTO;
+using Resto.Domain.Entity;
+using Resto.Domain.Service;
 
 namespace MANAJEMEN_RESTORAN_API.Controllers
 {
@@ -11,40 +9,46 @@ namespace MANAJEMEN_RESTORAN_API.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
-        private readonly IReservationRepository repo;
-        private readonly IMapper mapper;
+        private readonly IReservationRepository _repo;
 
-        public ReservationController(IReservationRepository repo, IMapper mapper)
+        public ReservationController(IReservationRepository repo)
         {
-            this.repo = repo;
-            this.mapper = mapper;
+           _repo = repo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll() { 
-            var domain = await repo.GetAll();
-            var dto = mapper.Map<List<THReservationDto>>(domain);
+            var domain = await _repo.GetAll();
+            var dto = domain.Select(reservation => reservation.ToDto()).ToList();
             return Ok(dto); 
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetById(int id) {
-            var domain = await repo.GetById(id);
-            var dto = mapper.Map<THReservationDto>(domain);
+            var domain = await _repo.GetById(id);
+            var dto = domain.ToDto();
             return Ok(dto);
         }
         
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddTHReservationRequestDto request) 
-        { 
-            var domain = mapper.Map<THReservation>(request);
-            domain = await repo.Create(domain);
+        public async Task<IActionResult> Create([FromBody] AddTHReservationRequestDto request)
+        {
+            var domain = new THReservation()
+            {
+                ReservationTime = request.ReservationTime,
+                ReservationDuration = request.ReservationDuration,
+                CustomerName = request.CustomerName,
+                CustomerPhone = request.CustomerPhone,
+                CustomerTotal = request.CustomerTotal,
+                DownPayment = request.DownPayment,
+            };
+            domain = await _repo.Create(domain);
             if (domain == null)
             {
                 return BadRequest();
             }
-            var dto = mapper.Map<THReservationDto>(domain);
+            var dto = domain.ToDto();
             return CreatedAtAction(nameof(GetAll),dto);
         }
 
